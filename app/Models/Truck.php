@@ -9,11 +9,11 @@ class Truck extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'license_plate',
-        'model',
-        'capacity',
-        'status',
-    ];
+    protected $table = 'trucks'; // Nama tabel di database
 
+    protected $fillable = [
+        'status',
+        'nama_truk',
+        'jenis_truk',
+    ];
 }
