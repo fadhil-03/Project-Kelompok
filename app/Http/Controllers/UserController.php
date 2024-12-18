@@ -26,7 +26,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:8|max:255',
+            'password' => 'required|min:3|max:255',
         ]);
 
         User::create([
@@ -36,6 +36,12 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
+    }
+
+    public function show($id)
+    {
+    $user = User::findOrFail($id);
+    return view('users.show', compact('user'));
     }
 
     // Menampilkan form untuk mengedit pengguna
@@ -50,7 +56,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:8|max:255', // Password opsional
+            'password' => 'nullable|min:3|max:255', // Password opsional
         ]);
 
         $user->update([
